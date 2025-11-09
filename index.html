@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Shadow Monarch Level Up Widget</title>
+<style>
+  body{background:#0b0710;color:#e6e0ff;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;margin:0;font-family:Arial}
+  .card{background:linear-gradient(135deg, rgba(28,18,38,0.9), rgba(12,6,20,0.85));border-radius:12px;padding:20px;width:380px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+  .aura{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(140,82,255,0.9), rgba(60,10,120,0.2) 40%, rgba(0,0,0,0));margin:0 auto;transform:scale(0);opacity:0;transition:transform 600ms cubic-bezier(.2,.9,.2,1),opacity 600ms}
+  .aura.on{transform:scale(1);opacity:1;box-shadow:0 0 60px rgba(140,82,255,0.85)}
+  .lvl{margin-top:16px;text-align:center}
+  button{background:linear-gradient(90deg,#7b3cff,#3a1b6f);border:none;color:white;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:700}
+</style>
+</head>
+<body>
+<div class="card">
+  <div style="text-align:center">
+    <h2>Shadow Monarch — Level Up</h2>
+    <div id="aura" class="aura"></div>
+    <div class="lvl"><strong id="msg">Click to Level Up</strong></div>
+    <div style="text-align:center;margin-top:12px">
+      <button id="btn">Level Up</button>
+    </div>
+  </div>
+</div>
+
+<audio id="sfx" src="levelup_sound.mp3"></audio>
+
+<script>
+const btn = document.getElementById('btn');
+const aura = document.getElementById('aura');
+const msg = document.getElementById('msg');
+const sfx = document.getElementById('sfx');
+
+btn.addEventListener('click', ()=>{
+  aura.classList.add('on');
+  sfx.currentTime = 0;
+  sfx.play().catch(()=>{console.log('autoplay blocked')});
+  msg.innerText = "You've leveled up. Your shadow grows stronger.";
+  setTimeout(()=>{aura.classList.remove('on'); msg.innerText = "Shadow Monarch";}, 3200);
+});
+</script>
+</body>
+</html>
